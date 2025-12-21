@@ -43,3 +43,13 @@ mesh = SubResource("PlaneMesh_ig7tw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ig7tw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.518954, 0.15476036, -7.6779785)
+use_collision = true
+size = Vector3(8.675293, 1.2164612, 16.355957)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.218387, 0.19467068, 10.727585)
+use_collision = true
+size = Vector3(8.675293, 2.8388214, 16.355957)

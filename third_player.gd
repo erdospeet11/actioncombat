@@ -22,6 +22,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	spring_arm.add_excluded_object(self)
 	print("Available animations:", animation_player.get_animation_list())
 
 func _unhandled_input(event):
@@ -63,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, DECELERATION * delta)
 		velocity.z = move_toward(velocity.z, 0, DECELERATION * delta)
-
+	
 	move_and_slide()
 	
 	var speed = Vector3(velocity.x, 0, velocity.z).length()
