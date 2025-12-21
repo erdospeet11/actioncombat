@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://1f760f0labqm"]
+[gd_scene load_steps=8 format=3 uid="uid://1f760f0labqm"]
 
 [ext_resource type="PackedScene" uid="uid://c3pj2c160gtv8" path="res://third_player.tscn" id="1_ig7tw"]
 
@@ -15,7 +15,11 @@ sky = SubResource("Sky_0xm2m")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tw"]
+albedo_color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_ig7tw")
 size = Vector2(100, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ig7tw"]

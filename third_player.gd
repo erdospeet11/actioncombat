@@ -14,6 +14,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var spring_arm = $Node3D/SpringArm3D
 @onready var visual = $"exported-model"
 @onready var animation_player = $"exported-model/AnimationPlayer"
+@onready var movement_speed_label = $DebugCanvasLayer/Panel/VBoxContainer/MovementSpeed
+@onready var movement_direction_label = $DebugCanvasLayer/Panel/VBoxContainer/MovementDirection
+@onready var camera_position_label = $DebugCanvasLayer/Panel/VBoxContainer/CameraPosition
+@onready var player_transform_label = $DebugCanvasLayer/Panel/VBoxContainer/PlayerTransform
+@onready var camera_3d = $Node3D/SpringArm3D/Camera3D
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -60,3 +65,12 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, DECELERATION * delta)
 
 	move_and_slide()
+	
+	var speed = Vector3(velocity.x, 0, velocity.z).length()
+	movement_speed_label.text = "Movement Speed: %.2f" % speed
+	movement_direction_label.text = "Direction: (%.2f, %.2f, %.2f)" % [direction.x, direction.y, direction.z]
+	var cam_pos = camera_3d.global_position
+	camera_position_label.text = "Camera Pos: (%.2f, %.2f, %.2f)" % [cam_pos.x, cam_pos.y, cam_pos.z]
+	
+	var player_pos = global_position
+	player_transform_label.text = "Player Pos: (%.2f, %.2f, %.2f)" % [player_pos.x, player_pos.y, player_pos.z]
