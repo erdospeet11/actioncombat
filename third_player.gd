@@ -1,21 +1,30 @@
 extends CharacterBody3D
 
 const SPEED = 5.0
+const SPRINT_SPEED = 9.0
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSITIVITY = 0.003
-const ROTATION_SPEED = 10.0
-const DEBUG_DRAW = true
+const LERP_VAL = 0.15
+const ACCELERATION = 40.0
+const DECELERATION = 40.0
 
-var direction := Vector3.FORWARD
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera_pivot = $Node3D
 @onready var spring_arm = $Node3D/SpringArm3D
-@onready var camera = $Node3D/SpringArm3D/Camera3D
+@onready var visual = $"exported-model"
+@onready var animation_player = $"exported-model/AnimationPlayer"
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-func _input(event):
+	print("Available animations:", animation_player.get_animation_list())
+
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+		camera_pivot.rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+		spring_arm.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
+		spring_arm.rotation.x = clamp(spring_arm.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+
 	if event.is_action_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -23,29 +32,31 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
-	
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y -= gravity * delta
 
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	
+	var input_dir = Input.get_vector("left", "right", "forward", "back")
 
-	var input_dir := Input.get_vector("left", "right", "forward", "back")
+	var direction = (camera_pivot.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	print(input_dir)
-	#var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
-	
-	"""
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		var current_speed = SPEED
+		if Input.is_action_pressed("sprint"):
+			current_speed = SPRINT_SPEED
+			animation_player.play("Jog_Fwd", 0.1)
+		else:
+			animation_player.play("Walk", 0.1)
+			
+		velocity.x = move_toward(velocity.x, direction.x * current_speed, ACCELERATION * delta)
+		velocity.z = move_toward(velocity.z, direction.z * current_speed, ACCELERATION * delta)
 		
 		var target_rotation = atan2(direction.x, direction.z)
-		rotation.y += lerp_angle(rotation.y, target_rotation, ROTATION_SPEED * delta)
+		visual.rotation.y = lerp_angle(visual.rotation.y, target_rotation, LERP_VAL)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-	"""
-	
-	velocity += Vector3(input_dir.x, 0, input_dir.y).normalized()
+		velocity.x = move_toward(velocity.x, 0, DECELERATION * delta)
+		velocity.z = move_toward(velocity.z, 0, DECELERATION * delta)
+
 	move_and_slide()
