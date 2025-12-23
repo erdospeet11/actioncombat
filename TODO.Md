@@ -1,9 +1,19 @@
-graphics
-animation
 - [ ] Implement AnimationTree for complex movement/combat states
-- combat
+- [ ] Multiplayer
+- [ ] you shouldnt get the sprint speed while jumping or in the air
+- [ ] jumping/falling animation
+- [ ] Graphics
+    - [ ] Shaders
+    - [ ] Textures
+    - [ ] Models
+- [ ] Animation Pipeline
+- [ ] Map/Environment
+    - [ ] Colosseum
+    - [ ] Castle/Throne
+    - [ ] Void
+- [ ] Combat
     - [ ] Unarmed
     - [ ] Weaponry
     - [ ] Sorcery
-
-Multiplayer
+- [ ] UI
+    
