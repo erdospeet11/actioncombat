@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3pj2c160gtv8"]
+[gd_scene load_steps=5 format=3 uid="uid://c3pj2c160gtv8"]
 
 [ext_resource type="Script" uid="uid://dckqg6f37b0q4" path="res://third_player.gd" id="1_8b8sf"]
 [ext_resource type="PackedScene" uid="uid://cj2ly5jodu5h2" path="res://exported-model.glb" id="1_sedoy"]
+[ext_resource type="Script" uid="uid://cc7kf4oec8gk7" path="res://debug_canvas_layer.gd" id="3_wej5b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8b8sf"]
 
@@ -79,6 +80,7 @@ spring_length = 1.9
 [node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
 
 [node name="DebugCanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("3_wej5b")
 
 [node name="Panel" type="PanelContainer" parent="DebugCanvasLayer"]
 offset_right = 180.0
@@ -107,5 +109,54 @@ text = "Camera Pos: (0, 0, 0)"
 [node name="PlayerTransform" type="Label" parent="DebugCanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "Player Transform: (0, 0, 0)"
+
+[node name="CurrencyCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CurrencyCanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -193.0
+offset_bottom = 44.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="CurrencyCanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CurrencyCanvasLayer/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1000"
+
+[node name="WeaponContainerCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="WeaponContainerCanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_right = 125.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="WeaponContainerCanvasLayer/MarginContainer"]
+layout_mode = 2
 
 [editable path="exported-model"]

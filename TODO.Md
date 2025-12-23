@@ -1,7 +1,7 @@
-- [ ] Implement AnimationTree for complex movement/combat states
+## Outline
+
+
 - [ ] Multiplayer
-- [ ] you shouldnt get the sprint speed while jumping or in the air
-- [ ] jumping/falling animation
 - [ ] Graphics
     - [ ] Shaders
     - [ ] Textures
@@ -17,3 +17,11 @@
     - [ ] Sorcery
 - [ ] UI
     
+## TODO
+
+- [ ] you shouldnt get the sprint speed while jumping or in the air   [MOVEMENT]
+- [ ] jumping/falling animation                                       [ANIMATION]
+- [ ] Implement AnimationTree for complex movement/combat states      [ANIMATION]
+- [ ] Player Setup Scene
+    - [ ] Player should be able to select weapon, abilties, modifiers
+- [ ] Sample Enemy AI
