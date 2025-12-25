@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="actioncombat"
-run/main_scene="uid://1f760f0labqm"
+run/main_scene="uid://dnt5cm64fc6uc"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
